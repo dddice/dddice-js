@@ -1,8 +1,8 @@
 # dddice JavaScript SDK
 
-Integrate live 3D dice rolling into your own projects.
+Read the [official documentation](https://docs.dddice.com/sdk/js/latest/) for more information.
 
-For more information, read the [Official Documentation](https://docs.dddice.com/sdk/js/latest/).
+Integrate live 3D dice rolling into your own projects by leveraging the power of [dddice](https://dddice.com).
 
 ## License
 
