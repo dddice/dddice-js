@@ -7,15 +7,15 @@ Integrate live 3D dice rolling into your own projects by leveraging the power of
 Add to your project's dependencies using your favorite package manager.
 
 ```shell
-npm install dddice --save
+npm install dddice-js --save
 # or
-yarn add dddice
+yarn add dddice-js
 ```
 
 Import and initialize the dddice instance.
 
 ```javascript
-import { ThreeDDice } from 'dddice';
+import { ThreeDDice } from 'dddice-js';
 
 const dddice = new ThreeDDice(document.getElementById('dddice'), '<YOUR_API_KEY>');
 
