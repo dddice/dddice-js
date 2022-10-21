@@ -1,0 +1,17 @@
+{
+  "name": "dddice",
+  "version": "0.0.1",
+  "description": "Integrate live 3D dice rolling into your own projects by leveraging the power of [dddice](https://dddice.com).",
+  "main": "dddice-latest.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dddice/dddice-js.git"
+  },
+  "keywords": [],
+  "author": "dddice",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dddice/dddice-js/issues"
+  },
+  "homepage": "https://dddice.com"
+}
