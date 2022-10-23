@@ -15,9 +15,10 @@ yarn add dddice-js
 Import and initialize the dddice instance.
 
 ```javascript
-import { ThreeDDice } from 'dddice-js';
+require('dddice-js');
 
-const dddice = new ThreeDDice(document.getElementById('dddice'), '<YOUR_API_KEY>');
+const canvasElement = document.getElementById('dddice'); // get the canvas element to roll dice into
+const dddice = new window.ThreeDDice(canvasElement, '<YOUR_API_KEY>');
 
 dddice.start(); // start the renderer
 dddice.connect('<YOUR_ROOM_SLUG>'); // connect and listen for room events
