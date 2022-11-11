@@ -13,5 +13,6 @@
   "bugs": {
     "url": "https://github.com/dddice/dddice-js/issues"
   },
-  "homepage": "https://dddice.com"
+  "homepage": "https://dddice.com",
+  "types": "./types"
 }
