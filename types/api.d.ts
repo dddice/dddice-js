@@ -1,0 +1,72 @@
+import { IRoomParticipant, IRoll, IRoom, IDiceRoll, IUser, ITheme } from '@dice/config';
+export declare enum ThreeDDiceRollEvent {
+    RollCreated = "RollCreateEvent",
+    RollUpdated = "RollUpdateEvent",
+    RollStarted = "roll:started",
+    RollFinished = "roll:finished",
+    RollFadeStarted = "roll:fade:started",
+    RollFadeFinished = "roll:fade:finished",
+    RollUnhideFinished = "roll:unhide:finished"
+}
+export declare enum ThreeDDiceRoomEvent {
+    RoomUpdated = "RoomUpdateEvent"
+}
+export declare type ConnectionStateCallback = (state: string) => any;
+export declare type ConnectionErrorCallback = (error: string) => any;
+export declare type ConnectionCreatedCallback = (participants: IRoomParticipant[]) => any;
+export declare type ConnectionUpdatedCallback = (participant: IRoomParticipant) => any;
+export declare type RollEventCallback = (roll: IRoll) => any;
+export declare type RoomEventCallback = (roll: IRoom) => any;
+export declare type DieEventCallback = (die: string) => any;
+export interface IApiResponse<T, R> {
+    type: T;
+    data: R;
+}
+export declare class ThreeDDiceAPI {
+    private apiKey?;
+    private roomSlug?;
+    private roomPasscode?;
+    private connection?;
+    private roomConnection?;
+    constructor(apiKey?: string);
+    connect: (roomSlug: string, roomPasscode?: string) => ThreeDDiceAPI;
+    listen(event: ThreeDDiceRoomEvent, callback: RoomEventCallback): ThreeDDiceAPI;
+    listen(event: ThreeDDiceRollEvent, callback: RollEventCallback): ThreeDDiceAPI;
+    onConnectionStateChange: (callback: (state: string) => any) => ThreeDDiceAPI;
+    onConnectionError: (callback: ConnectionErrorCallback) => ThreeDDiceAPI;
+    onConnect: (callback: ConnectionCreatedCallback) => ThreeDDiceAPI;
+    onParticipantConnect: (callback: ConnectionUpdatedCallback) => ThreeDDiceAPI;
+    onParticipantDisconnect: (callback: ConnectionUpdatedCallback) => ThreeDDiceAPI;
+    roll: {
+        create: (dice: IDiceRoll[]) => Promise<IApiResponse<'roll', IRoll>>;
+        get: (id: string) => Promise<IApiResponse<'roll', IRoll>>;
+        update: (id: string, payload: {
+            dice: {
+                uuid: string;
+                is_hidden?: boolean;
+            }[];
+            room?: string;
+        }) => Promise<IApiResponse<'roll', IRoll>>;
+        updateBulk: (rolls: {
+            uuid: string;
+            dice: {
+                uuid: string;
+                is_hidden?: boolean;
+            }[];
+            room?: string;
+        }[]) => Promise<IApiResponse<'roll[]', IRoll[]>>;
+    };
+    room: {
+        list: () => Promise<IApiResponse<'room', IRoom>>;
+        create: () => Promise<IApiResponse<'room', IRoom>>;
+        get: (slug: string) => Promise<IApiResponse<'room', IRoom>>;
+        join: (slug: string) => Promise<IApiResponse<'room', IRoom>>;
+        leave: (slug: string, participantId?: string) => Promise<IApiResponse<'room', IRoom>>;
+    };
+    theme: {
+        get: (id: string) => Promise<IApiResponse<'theme', ITheme>>;
+    };
+    user: {
+        get: () => Promise<IApiResponse<'user', IUser>>;
+    };
+}
