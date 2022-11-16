@@ -15,7 +15,7 @@ yarn add dddice-js
 Import and initialize the dddice instance.
 
 ```javascript
-require('dddice-js');
+import { ThreeDDice } from 'dddice-js'
 
 const canvasElement = document.getElementById('dddice'); // get the canvas element to roll dice into
 const dddice = new window.ThreeDDice(canvasElement, '<YOUR_API_KEY>');
