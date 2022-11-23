@@ -27,6 +27,7 @@ export declare class ThreeDDice {
     private events;
     private highlightPass;
     private loader;
+    private loaderQueue;
     private meshes;
     private outlinePasses;
     private physics;
@@ -64,7 +65,8 @@ export declare class ThreeDDice {
     on(event: ThreeDDiceRollEvent, callback: RollEventCallback): ThreeDDice;
     pause: () => void;
     pickUpRoll: (roll: IRoll | IRoll[], uuids?: string[]) => Promise<IApiResponse<"roll[]", IRoll[]>>;
-    preview: (theme: ITheme, availableDie: IAvailableDie | IDieType) => Promise<void>;
+    loadThemeResources: (id: string, processQueue?: boolean) => string[];
+    preview: (theme: ITheme, availableDie: IAvailableDie | IDieType) => void;
     resetCamera: () => void;
     resize: (width: number, height: number) => ThreeDDice;
     resume: () => void;
@@ -103,7 +105,9 @@ export declare class ThreeDDice {
     private onPointerDown;
     private onPointerMove;
     private onPointerUp;
+    private processLoaderQueue;
     private processQueueRoll;
+    private queueResource;
     private queueRoll;
     private removeDiceByUuid;
     private removeDiceIfOverLimit;
