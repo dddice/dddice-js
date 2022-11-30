@@ -1,4 +1,4 @@
-import { IRoomParticipant, IRoll, IRoom, IDiceRoll, IUser, ITheme } from '@dice/config';
+import { IRoomParticipant, IRoll, IRoom, IDiceRoll, IDiceRollOptions, IUser, ITheme } from '@dice/config';
 export declare enum ThreeDDiceRollEvent {
     RollCreated = "RollCreateEvent",
     RollUpdated = "RollUpdateEvent",
@@ -28,8 +28,10 @@ export declare class ThreeDDiceAPI {
     private roomPasscode?;
     private connection?;
     private roomConnection?;
+    private privateConnection?;
+    private diceBoxPagingState;
     constructor(apiKey?: string);
-    connect: (roomSlug: string, roomPasscode?: string) => ThreeDDiceAPI;
+    connect: (roomSlug: string, roomPasscode?: string, userUuid?: string) => ThreeDDiceAPI;
     listen(event: ThreeDDiceRoomEvent, callback: RoomEventCallback): ThreeDDiceAPI;
     listen(event: ThreeDDiceRollEvent, callback: RollEventCallback): ThreeDDiceAPI;
     onConnectionStateChange: (callback: (state: string) => any) => ThreeDDiceAPI;
@@ -37,8 +39,12 @@ export declare class ThreeDDiceAPI {
     onConnect: (callback: ConnectionCreatedCallback) => ThreeDDiceAPI;
     onParticipantConnect: (callback: ConnectionUpdatedCallback) => ThreeDDiceAPI;
     onParticipantDisconnect: (callback: ConnectionUpdatedCallback) => ThreeDDiceAPI;
+    diceBox: {
+        list: (filter?: string) => Promise<any>;
+        next: () => Promise<any>;
+    };
     roll: {
-        create: (dice: IDiceRoll[]) => Promise<IApiResponse<'roll', IRoll>>;
+        create: (dice: IDiceRoll[], options?: Partial<IDiceRollOptions>) => Promise<IApiResponse<'roll', IRoll>>;
         get: (id: string) => Promise<IApiResponse<'roll', IRoll>>;
         update: (id: string, payload: {
             dice: {

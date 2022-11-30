@@ -62,6 +62,11 @@ export interface IDiceRoll {
     theme: ITheme['id'];
     is_hidden: boolean;
 }
+export interface IDiceRollOptions {
+    room?: string;
+    operator?: object;
+    whisper?: number[];
+}
 export interface IDiceThrow {
     height: number;
     distance: number;
@@ -173,7 +178,7 @@ export interface IRollValueImage {
 export interface ISound {
     src: DieDefinition<string>;
     on: DiceEvent | string;
-    value?: number;
+    value?: number | string;
 }
 export interface ITheme extends IThemeOptions {
     formState?: IFormState;
@@ -224,8 +229,11 @@ export declare enum DiceEvent {
     DieCollide = "die.collide",
     DieValue = "die.value",
     DieRollHigh = "die.high",
-    DieRollLow = "die.low"
+    DieRollLow = "die.low",
+    RollLoading = "roll.loading",
+    RollLoaded = "roll.loaded"
 }
+export declare type DiceEventCallback = (themeName: string, value: number, loop: boolean) => void;
 export interface IAction {
     type: Action;
     payload?: IActionPayload;

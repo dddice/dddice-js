@@ -1,4 +1,4 @@
-import { IAvailableDie, IDiceRoll, IDieType, IEngineConfig, IRoll, ITheme, ThemeName } from '@dice/config';
+import { DiceEvent, DiceEventCallback, IAvailableDie, IDiceRoll, IDiceRollOptions, IDieType, IEngineConfig, IRoll, ITheme, ThemeName } from '@dice/config';
 import { IApiResponse, RollEventCallback, RoomEventCallback, ThreeDDiceAPI, ThreeDDiceRollEvent, ThreeDDiceRoomEvent } from '@dice/api';
 export declare enum ThreeDDiceDieEvent {
     AddDie = "addDie"
@@ -7,6 +7,7 @@ export declare class ThreeDDice {
     static DICE_ON_TABLE_LIMIT: number;
     static DefaultConfig: IEngineConfig;
     api?: ThreeDDiceAPI;
+    apiKey?: string;
     private _autoRotateEnabled;
     private _controlsEnabled;
     private _isDiceThrowing;
@@ -15,8 +16,8 @@ export declare class ThreeDDice {
     private _pointerDown;
     private _pointerDownPosition;
     private _previewMode;
-    private apiKey?;
     private audioListener;
+    private audio;
     private camera?;
     private canvas?;
     private clock;
@@ -55,12 +56,14 @@ export declare class ThreeDDice {
     get version(): string;
     get width(): number;
     clear: () => void;
-    connect: (roomSlug: string, roomPasscode?: string, apiKey?: string) => ThreeDDice;
+    connect: (roomSlug: string, roomPasscode?: string, userUuid?: string) => ThreeDDice;
+    dispatch: (event: DiceEvent | ThreeDDiceRollEvent | ThreeDDiceRoomEvent | ThreeDDiceDieEvent, ...params: any[]) => ThreeDDice;
     getTheme: (themeId: ThemeName) => ITheme;
     getThemes: () => ITheme[];
     initialize(canvas?: HTMLCanvasElement, apiKey?: string, config?: Partial<IEngineConfig>): this;
     loadTheme: (theme: ITheme, overwriteTheme?: boolean, fetchPreviews?: boolean) => void;
     off(event: ThreeDDiceRollEvent | ThreeDDiceRoomEvent): ThreeDDice;
+    on(event: DiceEvent, callback: DiceEventCallback): ThreeDDice;
     on(event: ThreeDDiceRoomEvent, callback: RoomEventCallback): ThreeDDice;
     on(event: ThreeDDiceRollEvent, callback: RollEventCallback): ThreeDDice;
     pause: () => void;
@@ -70,15 +73,15 @@ export declare class ThreeDDice {
     resetCamera: () => void;
     resize: (width: number, height: number) => ThreeDDice;
     resume: () => void;
-    roll: (dice: IDiceRoll[]) => Promise<IApiResponse<'roll', IRoll>>;
+    roll: (dice: IDiceRoll[], options?: IDiceRollOptions) => Promise<IApiResponse<'roll', IRoll>>;
     screenshot: (mimeType: string) => string;
     setConfig: (config: Partial<IEngineConfig>) => void;
     start: () => ThreeDDice;
     unhideRoll(roll: IRoll, uuids?: string[]): Promise<IApiResponse<"roll", IRoll>>;
     private boardHeight;
     private boardWidth;
-    private callAction;
     private createDie;
+    private compareEventValue;
     private eventRollCreated;
     private eventRollUpdated;
     private eventRoomUpdated;
@@ -90,6 +93,7 @@ export declare class ThreeDDice {
     private initAudioListener;
     private initCamera;
     private initControls;
+    private initListeners;
     private initPhysics;
     private initRenderer;
     private initScene;
@@ -105,6 +109,8 @@ export declare class ThreeDDice {
     private onPointerDown;
     private onPointerMove;
     private onPointerUp;
+    private onRollLoading;
+    private onRollLoaded;
     private processLoaderQueue;
     private processQueueRoll;
     private queueResource;
