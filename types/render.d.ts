@@ -61,7 +61,7 @@ export declare class ThreeDDice {
     getTheme: (themeId: ThemeName) => ITheme;
     getThemes: () => ITheme[];
     initialize(canvas?: HTMLCanvasElement, apiKey?: string, config?: Partial<IEngineConfig>): this;
-    loadTheme: (theme: ITheme, overwriteTheme?: boolean, fetchPreviews?: boolean) => void;
+    loadTheme: (theme: ITheme, overwriteTheme?: boolean, fetchPreviews?: boolean) => ThreeDDice;
     off(event: ThreeDDiceRollEvent | ThreeDDiceRoomEvent): ThreeDDice;
     on(event: DiceEvent, callback: DiceEventCallback): ThreeDDice;
     on(event: ThreeDDiceRoomEvent, callback: RoomEventCallback): ThreeDDice;

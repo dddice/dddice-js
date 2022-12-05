@@ -40,8 +40,8 @@ export declare class ThreeDDiceAPI {
     onParticipantConnect: (callback: ConnectionUpdatedCallback) => ThreeDDiceAPI;
     onParticipantDisconnect: (callback: ConnectionUpdatedCallback) => ThreeDDiceAPI;
     diceBox: {
-        list: (filter?: string) => Promise<any>;
-        next: () => Promise<any>;
+        list: (filter?: string) => Promise<IApiResponse<'theme[]', ITheme[]>>;
+        next: () => Promise<IApiResponse<'theme[]', ITheme[]> | null>;
     };
     roll: {
         create: (dice: IDiceRoll[], options?: Partial<IDiceRollOptions>) => Promise<IApiResponse<'roll', IRoll>>;
@@ -63,7 +63,7 @@ export declare class ThreeDDiceAPI {
         }[]) => Promise<IApiResponse<'roll[]', IRoll[]>>;
     };
     room: {
-        list: () => Promise<IApiResponse<'room', IRoom>>;
+        list: () => Promise<IApiResponse<'room[]', IRoom[]>>;
         create: () => Promise<IApiResponse<'room', IRoom>>;
         get: (slug: string) => Promise<IApiResponse<'room', IRoom>>;
         join: (slug: string) => Promise<IApiResponse<'room', IRoom>>;
@@ -72,11 +72,15 @@ export declare class ThreeDDiceAPI {
             username?: string;
             color?: string;
         }) => Promise<IApiResponse<'room', IRoom>>;
+        updateRolls: (slug: string, dice: {
+            is_cleared: boolean;
+        }) => Promise<any>;
     };
     theme: {
         get: (id: string) => Promise<IApiResponse<'theme', ITheme>>;
     };
     user: {
         get: () => Promise<IApiResponse<'user', IUser>>;
+        guest: () => Promise<IApiResponse<'string', string>>;
     };
 }
