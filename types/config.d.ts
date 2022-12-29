@@ -1,4 +1,4 @@
-import { Color, Mesh, Texture, ShaderMaterial } from 'three';
+import { Color, Mesh, Texture, ShaderMaterial, Material } from 'three';
 import { DiceObject, IDicePhysicsState } from '@dice/dice';
 import { IFormState } from './generator';
 export interface IBindableTexture {
@@ -46,7 +46,7 @@ export interface IDiceOptions {
     inertia?: number;
     isRollHidden: boolean;
     shouldFadeOut: boolean;
-    material: ShaderMaterial;
+    material: Material;
     meshTemplate: Mesh;
     size: number;
     textures: IBindableTexture[];

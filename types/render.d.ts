@@ -27,6 +27,8 @@ export declare class ThreeDDice {
     private dice;
     private events;
     private highlightPass;
+    private fbxLoader;
+    private gltfLoader;
     private loader;
     private loaderQueue;
     private meshes;
@@ -43,6 +45,7 @@ export declare class ThreeDDice {
     private textures;
     private themePreviewFetchQueue;
     private themes;
+    private shouldAnimate;
     constructor(canvas?: HTMLCanvasElement, apiKey?: string, config?: Partial<IEngineConfig>);
     static isWebGLAvailable: () => boolean;
     get autoRotate(): boolean;
@@ -57,6 +60,7 @@ export declare class ThreeDDice {
     get width(): number;
     clear: () => void;
     connect: (roomSlug: string, roomPasscode?: string, userUuid?: string) => ThreeDDice;
+    disconnect: () => ThreeDDice;
     dispatch: (event: DiceEvent | ThreeDDiceRollEvent | ThreeDDiceRoomEvent | ThreeDDiceDieEvent, ...params: any[]) => ThreeDDice;
     getTheme: (themeId: ThemeName) => ITheme;
     getThemes: () => ITheme[];
@@ -77,6 +81,7 @@ export declare class ThreeDDice {
     screenshot: (mimeType: string) => string;
     setConfig: (config: Partial<IEngineConfig>) => void;
     start: () => ThreeDDice;
+    stop: () => ThreeDDice;
     unhideRoll(roll: IRoll, uuids?: string[]): Promise<IApiResponse<"roll", IRoll>>;
     private boardHeight;
     private boardWidth;

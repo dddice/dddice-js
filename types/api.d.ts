@@ -30,8 +30,10 @@ export declare class ThreeDDiceAPI {
     private roomConnection?;
     private privateConnection?;
     private diceBoxPagingState;
+    private userUuid;
     constructor(apiKey?: string);
     connect: (roomSlug: string, roomPasscode?: string, userUuid?: string) => ThreeDDiceAPI;
+    disconnect: () => ThreeDDiceAPI;
     listen(event: ThreeDDiceRoomEvent, callback: RoomEventCallback): ThreeDDiceAPI;
     listen(event: ThreeDDiceRollEvent, callback: RollEventCallback): ThreeDDiceAPI;
     onConnectionStateChange: (callback: (state: string) => any) => ThreeDDiceAPI;
