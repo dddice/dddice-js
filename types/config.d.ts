@@ -98,7 +98,7 @@ export interface IEngineConfig {
     bgColor: Color | string | number;
     bgOpacity: number;
     camera: ICamera;
-    dice: IDiceConfig;
+    dice: Partial<IDiceConfig>;
     drawDebug?: boolean;
     light: ILight;
     previewMode?: boolean;
