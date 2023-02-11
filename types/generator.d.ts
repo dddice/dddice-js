@@ -1,10 +1,4 @@
 import { Graphics } from 'pixi.js';
-import { IDieType } from '@dice/config';
-export declare enum FontFamily {
-    Arial = "Arial",
-    HelveticaNeue = "HelveticaNeue",
-    Bangers = "Bangers"
-}
 export declare enum DieFaceType {
     Image = "image",
     Text = "text"
@@ -14,20 +8,30 @@ export declare enum BackgroundType {
     Image = "image"
 }
 export interface IFormState extends ITextureProperties {
-    overrides: Record<IDieType, ITextureProperties[]>;
+    available_dice: any[];
+    overrides: Record<string, ITextureProperties[]>;
     baseTheme?: string;
     uniforms: object;
     shader?: string;
     name: string;
+    meshes: Record<string, string>;
+    sizes: Record<string, number>;
+    map?: number | Record<string, string>;
+    mapFileName?: string | Record<string, string>;
+    bumpMap?: number | Record<string, string>;
+    bumpMapFileName?: string | Record<string, string>;
+    numbersBumpScale: number;
+    numbersBumpBlurStrength: number;
 }
 export interface ITextureProperties {
-    fontColor: number;
+    fontColor?: number;
     fontFamily?: string;
-    fontSize: number;
+    fontSize?: number;
     id?: number;
     dieFace?: number;
     dieFaceType?: DieFaceType;
     dieFaceValue?: string;
+    dieFaceValueUnderline?: boolean;
     chatDisplayValue?: string;
     chatDisplayType?: DieFaceType;
     chatDisplayValueFileName?: string;
@@ -36,8 +40,6 @@ export interface ITextureProperties {
     iconY?: number;
     iconHeight?: number;
     iconWidth?: number;
-    backgroundType?: BackgroundType;
-    backgroundValue?: string | number;
 }
 export default class ThreeDGenerator {
     static DEFAULT_FORM_STATE: IFormState;
@@ -52,5 +54,5 @@ export default class ThreeDGenerator {
     constructor(canvas: HTMLCanvasElement);
     get width(): number;
     get height(): number;
-    generateNumbers(currentDie: IDieType, properties: IFormState): Promise<string>;
+    generateNumbers(currentDie: string, properties: IFormState, bumpMap?: boolean): Promise<string>;
 }

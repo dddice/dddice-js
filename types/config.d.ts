@@ -40,6 +40,7 @@ export interface IAvailableDie {
 export interface IDiceConfig {
     size: number;
     throw: IDiceThrow;
+    drawOutlines?: boolean;
 }
 export interface IDiceOptions {
     color: string;
@@ -205,7 +206,7 @@ export interface ITheme extends IThemeOptions {
 export interface IThemeOptions {
     id: ThemeName;
     meshes: DieDefinition<string>;
-    available_dice: IAvailableDie[] | IDieType[];
+    available_dice: any[];
     textures: IBindableTextureSrc[];
     uniforms: ShaderMaterial['uniforms'];
     sizes: DieDefinition<number>;
@@ -240,7 +241,8 @@ export interface IAction {
 }
 export declare enum Action {
     ADD_DIE = 0,
-    REMOVE_DIE = 1
+    ADD_THEME = 1,
+    REMOVE_DIE = 2
 }
 export interface IActionPayload {
 }

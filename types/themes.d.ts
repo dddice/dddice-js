@@ -5,9 +5,10 @@ export default class ThemeBuilder {
     static load(theme: ITheme): ITheme;
     static loadBaseTheme(themeId: ThemeName): Promise<ITheme>;
     static buildTheme(partialTheme: ITheme | Partial<ITheme>): ITheme;
-    static transformColorUniform(uniform: any): any;
-    static formifyColorUniform(uniform: any): any;
+    static transformColorUniform(uniform: any, api_version: any): any;
+    static formifyColorUniform(uniform: any, api_version: any): any;
     static checkSyntaxV1_0(theme: ITheme): void;
+    static checkSyntaxV2_0(theme: ITheme): void;
 }
 export declare const getDieNotation: (theme: ITheme, dieId: string) => string;
 export declare const DEFAULT_THEME: Partial<ITheme>;
@@ -20,6 +21,8 @@ export declare const DEFAULT_PHONG_THEME: {
         bumpScale: {
             type: string;
             value: number;
+            min: number;
+            max: number;
         };
         diffuse: {
             type: string;
@@ -169,6 +172,8 @@ export declare const SHADERS: {
             bumpScale: {
                 type: string;
                 value: number;
+                min: number;
+                max: number;
             };
             diffuse: {
                 type: string;

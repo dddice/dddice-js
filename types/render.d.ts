@@ -26,7 +26,6 @@ export declare class ThreeDDice {
     private controls;
     private dice;
     private events;
-    private highlightPass;
     private fbxLoader;
     private gltfLoader;
     private loader;
@@ -94,7 +93,6 @@ export declare class ThreeDDice {
     private fadeOutDiceByUuid;
     private getDiceOptions;
     private getThemeOptions;
-    private highlightObjects;
     private initAudioListener;
     private initCamera;
     private initControls;
