@@ -70,7 +70,7 @@ export declare class ThreeDDiceAPI {
         get: (slug: string, passcode?: string) => Promise<IApiResponse<'room', IRoom>>;
         join: (slug: string, passcode?: string) => Promise<IApiResponse<'room', IRoom>>;
         leave: (slug: string, participantId?: string) => Promise<IApiResponse<'room', IRoom>>;
-        updateParticipant: (slug: string, participantId: string, data: {
+        updateParticipant: (slug: string, participantId: number, data: {
             username?: string;
             color?: string;
         }) => Promise<IApiResponse<'room', IRoom>>;

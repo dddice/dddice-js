@@ -19,7 +19,7 @@ export declare class ThreeDDice {
     private audioListener;
     private audio;
     private camera?;
-    private canvas?;
+    canvas?: HTMLCanvasElement;
     private clock;
     private composer?;
     private config;
