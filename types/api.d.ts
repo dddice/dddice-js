@@ -31,7 +31,7 @@ export declare class ThreeDDiceAPI {
     private privateConnection?;
     private diceBoxPagingState;
     private userUuid;
-    constructor(apiKey?: string);
+    constructor(apiKey?: string, appName?: string);
     connect: (roomSlug: string, roomPasscode?: string, userUuid?: string) => ThreeDDiceAPI;
     disconnect: () => ThreeDDiceAPI;
     listen(event: ThreeDDiceRoomEvent, callback: RoomEventCallback): ThreeDDiceAPI;

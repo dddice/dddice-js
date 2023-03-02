@@ -242,7 +242,8 @@ export interface IAction {
 export declare enum Action {
     ADD_DIE = 0,
     ADD_THEME = 1,
-    REMOVE_DIE = 2
+    REMOVE_DIE = 2,
+    REPLACE_THEME = 3
 }
 export interface IActionPayload {
 }

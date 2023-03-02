@@ -63,7 +63,7 @@ export declare class ThreeDDice {
     dispatch: (event: DiceEvent | ThreeDDiceRollEvent | ThreeDDiceRoomEvent | ThreeDDiceDieEvent, ...params: any[]) => ThreeDDice;
     getTheme: (themeId: ThemeName) => ITheme;
     getThemes: () => ITheme[];
-    initialize(canvas?: HTMLCanvasElement, apiKey?: string, config?: Partial<IEngineConfig>): this;
+    initialize(canvas?: HTMLCanvasElement, apiKey?: string, config?: Partial<IEngineConfig>, appName?: string): this;
     loadTheme: (theme: ITheme, overwriteTheme?: boolean, fetchPreviews?: boolean) => ThreeDDice;
     off(event: ThreeDDiceRollEvent | ThreeDDiceRoomEvent): ThreeDDice;
     on(event: DiceEvent, callback: DiceEventCallback): ThreeDDice;
