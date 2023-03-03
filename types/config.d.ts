@@ -64,8 +64,10 @@ export interface IDiceRoll {
     is_hidden: boolean;
 }
 export interface IDiceRollOptions {
-    room?: string;
+    external_id?: string;
+    label?: string;
     operator?: object;
+    room?: string;
     whisper?: number[];
 }
 export interface IDiceThrow {
