@@ -6,6 +6,8 @@
  * Released under the MIT licence.
  */
 
+/*! js-cookie v3.0.4 | MIT */
+
 /**
  * @license
  * Copyright 2010-2022 Three.js Authors

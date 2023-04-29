@@ -1,4 +1,5 @@
 import { DiceEvent, DiceEventCallback, IAvailableDie, IDiceRoll, IDiceRollOptions, IDieType, IEngineConfig, IRoll, ITheme, ThemeName } from '@dice/config';
+import { DiceObject } from '@dice/dice';
 import { IApiResponse, RollEventCallback, RoomEventCallback, ThreeDDiceAPI, ThreeDDiceRollEvent, ThreeDDiceRoomEvent } from '@dice/api';
 export declare enum ThreeDDiceDieEvent {
     AddDie = "addDie"
@@ -72,7 +73,7 @@ export declare class ThreeDDice {
     pause: () => void;
     pickUpRoll: (roll: IRoll | IRoll[], uuids?: string[]) => Promise<IApiResponse<"roll[]", IRoll[]>>;
     loadThemeResources: (id: string, processQueue?: boolean) => string[];
-    preview: (theme: ITheme, availableDie: IAvailableDie | IDieType) => void;
+    preview: (theme: ITheme, availableDie: IAvailableDie | IDieType) => Promise<DiceObject | undefined>;
     resetCamera: () => void;
     resize: (width: number, height: number) => ThreeDDice;
     resume: () => void;

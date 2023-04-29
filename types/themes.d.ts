@@ -26,27 +26,23 @@ export declare const DEFAULT_PHONG_THEME: {
         };
         diffuse: {
             type: string;
-            value: {
-                r: number;
-                g: number;
-                b: number;
-            };
+            value: string;
         };
         number: {
             type: string;
-            value: {
-                r: number;
-                g: number;
-                b: number;
-            };
+            value: string;
+        };
+        outline: {
+            type: string;
+            value: string;
         };
         emissive: {
             type: string;
-            value: {
-                r: number;
-                g: number;
-                b: number;
-            };
+            value: string;
+        };
+        outlineEmissive: {
+            type: string;
+            value: string;
         };
         specular: {
             type: string;
@@ -65,8 +61,16 @@ export declare const DEFAULT_PHONG_THEME: {
         hiddenness: {
             type: string;
             value: number;
+            min: number;
+            max: number;
         };
         opacity: {
+            type: string;
+            value: number;
+            min: number;
+            max: number;
+        };
+        reflectivity: {
             type: string;
             value: number;
             min: number;
@@ -88,7 +92,7 @@ export declare const DEFAULT_TOON_THEME: {
             type: string;
             value: string;
         };
-        number: {
+        outline: {
             type: string;
             value: string;
         };
@@ -96,7 +100,77 @@ export declare const DEFAULT_TOON_THEME: {
             type: string;
             value: string;
         };
+        outlineEmissive: {
+            type: string;
+            value: string;
+        };
         opacity: {
+            type: string;
+            value: number;
+            min: number;
+            max: number;
+        };
+        bumpScale: {
+            type: string;
+            value: number;
+            min: number;
+            max: number;
+        };
+    };
+};
+export declare const DEFAULT_STANDARD_THEME: {
+    frag_shader: string;
+    vert_shader: string;
+    uniforms: {
+        dissolve: {
+            type: string;
+            value: number;
+        };
+        diffuse: {
+            type: string;
+            value: string;
+        };
+        number: {
+            type: string;
+            value: string;
+        };
+        outline: {
+            type: string;
+            value: string;
+        };
+        emissive: {
+            type: string;
+            value: string;
+        };
+        outlineEmissive: {
+            type: string;
+            value: string;
+        };
+        metalness: {
+            type: string;
+            value: number;
+            min: number;
+            max: number;
+        };
+        roughness: {
+            type: string;
+            value: number;
+            min: number;
+            max: number;
+        };
+        opacity: {
+            type: string;
+            value: number;
+            min: number;
+            max: number;
+        };
+        bumpScale: {
+            type: string;
+            value: number;
+            min: number;
+            max: number;
+        };
+        envMapIntensity: {
             type: string;
             value: number;
             min: number;
@@ -120,7 +194,19 @@ export declare const DEFAULT_PHYSICAL_THEME: {
             type: string;
             value: string;
         };
+        outline: {
+            type: string;
+            value: string;
+        };
         emissive: {
+            type: string;
+            value: string;
+        };
+        outlineEmissive: {
+            type: string;
+            value: string;
+        };
+        sheenColor: {
             type: string;
             value: string;
         };
@@ -131,6 +217,18 @@ export declare const DEFAULT_PHYSICAL_THEME: {
             max: number;
         };
         clearcoatRoughness: {
+            type: string;
+            value: number;
+            min: number;
+            max: number;
+        };
+        sheen: {
+            type: string;
+            value: number;
+            min: number;
+            max: number;
+        };
+        sheenRoughness: {
             type: string;
             value: number;
             min: number;
@@ -160,6 +258,12 @@ export declare const DEFAULT_PHYSICAL_THEME: {
             min: number;
             max: number;
         };
+        bumpScale: {
+            type: string;
+            value: number;
+            min: number;
+            max: number;
+        };
     };
 };
 export declare const SHADERS: {
@@ -177,27 +281,23 @@ export declare const SHADERS: {
             };
             diffuse: {
                 type: string;
-                value: {
-                    r: number;
-                    g: number;
-                    b: number;
-                };
+                value: string;
             };
             number: {
                 type: string;
-                value: {
-                    r: number;
-                    g: number;
-                    b: number;
-                };
+                value: string;
+            };
+            outline: {
+                type: string;
+                value: string;
             };
             emissive: {
                 type: string;
-                value: {
-                    r: number;
-                    g: number;
-                    b: number;
-                };
+                value: string;
+            };
+            outlineEmissive: {
+                type: string;
+                value: string;
             };
             specular: {
                 type: string;
@@ -216,8 +316,16 @@ export declare const SHADERS: {
             hiddenness: {
                 type: string;
                 value: number;
+                min: number;
+                max: number;
             };
             opacity: {
+                type: string;
+                value: number;
+                min: number;
+                max: number;
+            };
+            reflectivity: {
                 type: string;
                 value: number;
                 min: number;
@@ -239,7 +347,7 @@ export declare const SHADERS: {
                 type: string;
                 value: string;
             };
-            number: {
+            outline: {
                 type: string;
                 value: string;
             };
@@ -247,7 +355,77 @@ export declare const SHADERS: {
                 type: string;
                 value: string;
             };
+            outlineEmissive: {
+                type: string;
+                value: string;
+            };
             opacity: {
+                type: string;
+                value: number;
+                min: number;
+                max: number;
+            };
+            bumpScale: {
+                type: string;
+                value: number;
+                min: number;
+                max: number;
+            };
+        };
+    };
+    standard: {
+        frag_shader: string;
+        vert_shader: string;
+        uniforms: {
+            dissolve: {
+                type: string;
+                value: number;
+            };
+            diffuse: {
+                type: string;
+                value: string;
+            };
+            number: {
+                type: string;
+                value: string;
+            };
+            outline: {
+                type: string;
+                value: string;
+            };
+            emissive: {
+                type: string;
+                value: string;
+            };
+            outlineEmissive: {
+                type: string;
+                value: string;
+            };
+            metalness: {
+                type: string;
+                value: number;
+                min: number;
+                max: number;
+            };
+            roughness: {
+                type: string;
+                value: number;
+                min: number;
+                max: number;
+            };
+            opacity: {
+                type: string;
+                value: number;
+                min: number;
+                max: number;
+            };
+            bumpScale: {
+                type: string;
+                value: number;
+                min: number;
+                max: number;
+            };
+            envMapIntensity: {
                 type: string;
                 value: number;
                 min: number;
@@ -271,7 +449,19 @@ export declare const SHADERS: {
                 type: string;
                 value: string;
             };
+            outline: {
+                type: string;
+                value: string;
+            };
             emissive: {
+                type: string;
+                value: string;
+            };
+            outlineEmissive: {
+                type: string;
+                value: string;
+            };
+            sheenColor: {
                 type: string;
                 value: string;
             };
@@ -282,6 +472,18 @@ export declare const SHADERS: {
                 max: number;
             };
             clearcoatRoughness: {
+                type: string;
+                value: number;
+                min: number;
+                max: number;
+            };
+            sheen: {
+                type: string;
+                value: number;
+                min: number;
+                max: number;
+            };
+            sheenRoughness: {
                 type: string;
                 value: number;
                 min: number;
@@ -306,6 +508,12 @@ export declare const SHADERS: {
                 max: number;
             };
             opacity: {
+                type: string;
+                value: number;
+                min: number;
+                max: number;
+            };
+            bumpScale: {
                 type: string;
                 value: number;
                 min: number;

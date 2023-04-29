@@ -1,11 +1,11 @@
 export interface IColorPickerProps {
-    key?: string;
+    bottom?: boolean;
     className?: string;
     color: string;
+    key?: string;
     label?: string;
-    onChange?(color: string): void;
-    bottom?: boolean;
     left?: boolean;
+    onChange?(color: string): void;
     right?: boolean;
     top?: boolean;
 }

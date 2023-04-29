@@ -1,5 +1,5 @@
 import { Body as CannonBody, Material as CannonMaterial } from 'cannon-es';
-import { IDiceValue } from '@dice/config';
+import { IDiceValue, IPhysics } from '@dice/config';
 export default class ThreeDDicePhysics {
     static BARRIER_MATERIAL: CannonMaterial;
     static DICE_MATERIAL: CannonMaterial;
@@ -7,11 +7,13 @@ export default class ThreeDDicePhysics {
     static KEYFRAME_INTERVAL: number;
     static PHYSICS_ITERATIONS: number;
     static PHYSICS_STEP: number;
+    private config;
     private physics;
     private walls;
-    constructor();
+    constructor(config: IPhysics);
     add: (body: CannonBody) => void;
     init: (sizeX: number, sizeY: number) => void;
+    setConfig: (config: IPhysics) => void;
     remove: (body: CannonBody) => void;
     resize: (sizeX: number, sizeY: number) => void;
     runSimulation: (diceValues: IDiceValue[]) => Promise<void>;

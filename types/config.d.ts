@@ -1,6 +1,20 @@
 import { Color, Mesh, Texture, ShaderMaterial, Material } from 'three';
 import { DiceObject, IDicePhysicsState } from '@dice/dice';
 import { IFormState } from './generator';
+export declare enum TextSize {
+    Small = "sm",
+    Medium = "md",
+    Large = "lg"
+}
+export declare enum PickUp {
+    Manually = 0,
+    BeforeNextRoll = 1
+}
+export declare enum DiceSize {
+    Small = 1,
+    Medium = 2,
+    Large = 3
+}
 export interface IBindableTexture {
     binding: string;
     texture: Texture;
@@ -8,6 +22,7 @@ export interface IBindableTexture {
 export interface IBindableTextureSrc {
     binding: string;
     src: DieDefinition<string> | string;
+    encoding?: string;
 }
 export interface ICamera {
     fov: number;
@@ -104,11 +119,19 @@ export interface IEngineConfig {
     dice: Partial<IDiceConfig>;
     drawDebug?: boolean;
     light: ILight;
+    physics: IPhysics;
     previewMode?: boolean;
     persistRolls?: boolean;
 }
+export interface IPhysics {
+    gravity: {
+        x: number;
+        y: number;
+        z: number;
+    };
+}
 export interface ILight {
-    ambientColor: Color | string | number;
+    ambientColor: string | number;
     ambientIntensity: number;
     castShadows: boolean;
     direction: {
@@ -116,12 +139,49 @@ export interface ILight {
         y: number;
         z: number;
     };
-    directionalColor: Color | string | number;
+    directionalColor: string | number;
     directionalIntensity: number;
+}
+export interface IChatSettings {
+    backgroundColor: number;
+    deleteAfter: number;
+    fadeAfter: number;
+    isDiceExpanded: boolean;
+    isDiceSorted: boolean;
+    isUsernameVisible: boolean;
+    isVisible: boolean;
+    textColor: number;
+    textSize: TextSize;
+}
+export interface ILightingSettings {
+    ambientColor: number;
+    ambientIntensity: number;
+    spotlightColor: number;
+    spotlightIntensity: number;
+}
+export interface IPhysicsSettings {
+    gravity: number;
+    throwSpeed: number;
+}
+export interface IRollSettings {
+    autoClear: number;
+    diceSize: DiceSize;
+    diceTrayColor: number;
+    disableDiceOutline: boolean;
+    disableDiceShadows: boolean;
+    disableShakingSound: boolean;
+    pickUp: PickUp;
+}
+export interface IRoomSettings {
+    chat: IChatSettings;
+    lighting: ILightingSettings;
+    physics: IPhysicsSettings;
+    roll: IRollSettings;
 }
 export interface IRoom {
     bg_file_path?: string;
     created_at: string;
+    custom_slug?: string;
     id: number;
     is_public: boolean;
     name: string;
@@ -130,6 +190,7 @@ export interface IRoom {
     slug: string;
     updated_at: string;
     user: IUser;
+    settings: IRoomSettings;
 }
 export interface IRoomParticipant {
     id: number;
@@ -160,6 +221,8 @@ export interface IRoll {
     velocity: number;
     created_at: string;
     updated_at: string;
+    operator: Record<string, string>;
+    whisper: string[];
 }
 export interface IRollValue {
     uuid: string;
@@ -207,6 +270,7 @@ export interface ITheme extends IThemeOptions {
 }
 export interface IThemeOptions {
     id: ThemeName;
+    api_version: number | string;
     meshes: DieDefinition<string>;
     available_dice: any[];
     textures: IBindableTextureSrc[];

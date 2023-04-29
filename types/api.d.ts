@@ -77,6 +77,11 @@ export declare class ThreeDDiceAPI {
         updateRolls: (slug: string, dice: {
             is_cleared: boolean;
         }) => Promise<any>;
+        update: (slug: string, room: {
+            name: string;
+            is_public: boolean;
+            passcode: string;
+        }) => Promise<any>;
     };
     theme: {
         get: (id: string) => Promise<IApiResponse<'theme', ITheme>>;
