@@ -1,6 +1,4 @@
-import { Color, Mesh, Texture, ShaderMaterial, Material } from 'three';
-import { DiceObject, IDicePhysicsState } from '@dice/dice';
-import { IFormState } from './generator';
+import { ShaderMaterial } from 'three';
 export declare enum TextSize {
     Small = "sm",
     Medium = "md",
@@ -14,10 +12,6 @@ export declare enum DiceSize {
     Small = 1,
     Medium = 2,
     Large = 3
-}
-export interface IBindableTexture {
-    binding: string;
-    texture: Texture;
 }
 export interface IBindableTextureSrc {
     binding: string;
@@ -57,26 +51,15 @@ export interface IDiceConfig {
     throw: IDiceThrow;
     drawOutlines?: boolean;
 }
-export interface IDiceOptions {
-    color: string;
-    inertia?: number;
-    isRollHidden: boolean;
-    shouldFadeOut: boolean;
-    material: Material;
-    meshTemplate: Mesh;
-    size: number;
-    textures: IBindableTexture[];
-    uuid: string;
-    weight?: number;
-}
 export interface IDicePile {
     dieType: IDieType;
     theme: ITheme['id'];
 }
 export interface IDiceRoll {
-    type: IDieType;
+    type: string;
     theme: ITheme['id'];
-    is_hidden: boolean;
+    is_hidden?: boolean;
+    label?: string;
 }
 export interface IDiceRollOptions {
     external_id?: string;
@@ -95,12 +78,6 @@ export interface IDiceThrow {
     directionCone: number;
     maxSpin: number;
 }
-export interface IDiceValue {
-    dice: DiceObject;
-    value: number;
-    keyframes: IDicePhysicsState[];
-    stableCount: number;
-}
 export declare enum IDirection {
     N = 0,
     NE = -45,
@@ -113,7 +90,7 @@ export declare enum IDirection {
 }
 export interface IEngineConfig {
     autoClear?: number | null;
-    bgColor: Color | string | number;
+    bgColor: string | number;
     bgOpacity: number;
     camera: ICamera;
     dice: Partial<IDiceConfig>;
@@ -214,6 +191,7 @@ export interface IRoll {
     equation: string;
     direction: number;
     room: IRoom;
+    label?: string;
     total_value: string | (IRollValueImage | string)[];
     user: IUser;
     external_id?: string;
@@ -231,6 +209,7 @@ export interface IRollValue {
     is_visible: boolean;
     is_cleared: boolean;
     is_dropped: boolean;
+    label?: string;
     type: string;
     theme: string;
     value: number;
@@ -246,11 +225,39 @@ export interface ISound {
     on: DiceEvent | string;
     value?: number | string;
 }
+export interface IParticleSystem {
+    system: any;
+    on: ParticleSystemStates | string;
+    rotate_with_die: boolean;
+}
+export interface IThemeOptions {
+    id: ThemeName;
+    api_version: number | string;
+    meshes: DieDefinition<string>;
+    available_dice: any[];
+    textures: IBindableTextureSrc[];
+    uniforms: ShaderMaterial['uniforms'];
+    sizes: DieDefinition<number>;
+    physics?: {
+        inertia?: DieDefinition<number>;
+        weight?: DieDefinition<number>;
+    };
+    particles?: IParticleSystem[];
+    sounds?: ISound[];
+    values: {
+        d4: number[];
+        d6: number[];
+        d8: number[];
+        d10: number[];
+        d10x: number[];
+        d12: number[];
+        d20: number[];
+    };
+}
 export interface ITheme extends IThemeOptions {
-    formState?: IFormState;
     extend: string;
-    frag_shader: ShaderMaterial['fragmentShader'];
-    vert_shader: ShaderMaterial['vertexShader'];
+    frag_shader: string;
+    vert_shader: string;
     options: Record<string, unknown>;
     api_version: number | string;
     author?: string;
@@ -268,29 +275,6 @@ export interface ITheme extends IThemeOptions {
     updated_at: string;
     version: string;
 }
-export interface IThemeOptions {
-    id: ThemeName;
-    api_version: number | string;
-    meshes: DieDefinition<string>;
-    available_dice: any[];
-    textures: IBindableTextureSrc[];
-    uniforms: ShaderMaterial['uniforms'];
-    sizes: DieDefinition<number>;
-    physics?: {
-        inertia?: DieDefinition<number>;
-        weight?: DieDefinition<number>;
-    };
-    sounds?: ISound[];
-    values: {
-        d4: number[];
-        d6: number[];
-        d8: number[];
-        d10: number[];
-        d10x: number[];
-        d12: number[];
-        d20: number[];
-    };
-}
 export declare enum DiceEvent {
     Any = "any",
     DieCollide = "die.collide",
@@ -300,29 +284,15 @@ export declare enum DiceEvent {
     RollLoading = "roll.loading",
     RollLoaded = "roll.loaded"
 }
+export declare enum ParticleSystemStates {
+    DieIdle = "die.idle",
+    Always = "always",
+    DieCollide = "die.collide",
+    DieValue = "die.value",
+    DieRollHigh = "die.high",
+    DieRollLow = "die.low",
+    RollLoading = "roll.loading",
+    RollLoaded = "roll.loaded"
+}
 export declare type DiceEventCallback = (themeName: string, value: number, loop: boolean) => void;
-export interface IAction {
-    type: Action;
-    payload?: IActionPayload;
-}
-export declare enum Action {
-    ADD_DIE = 0,
-    ADD_THEME = 1,
-    REMOVE_DIE = 2,
-    REPLACE_THEME = 3
-}
-export interface IActionPayload {
-}
-export interface IActionAddDie extends IActionPayload {
-    dieIndex: number;
-    dieType: IDieType;
-    fromDieIndex?: number;
-    fromIndex?: number;
-    index: number;
-    theme: ITheme['id'];
-}
-export interface IActionRemoveDie extends IActionPayload {
-    dieIndex: number;
-    index: number;
-}
 export declare type ThemeName = string;
