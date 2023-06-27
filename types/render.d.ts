@@ -77,6 +77,7 @@ export declare class ThreeDDice {
     resize: (width: number, height: number) => ThreeDDice;
     resume: () => void;
     roll: (dice: IDiceRoll[], options?: IDiceRollOptions) => Promise<IApiResponse<'roll', IRoll>>;
+    rollLocal: (dice: IDiceRoll[], options?: IDiceRollOptions, user?: any) => Promise<IApiResponse<'roll', IRoll>>;
     screenshot: (mimeType: string) => string;
     setConfig: (config: Partial<IEngineConfig>) => void;
     start: () => ThreeDDice;
@@ -85,11 +86,14 @@ export declare class ThreeDDice {
     private boardHeight;
     private boardWidth;
     private createDie;
-    private compareEventValue;
+    private static compareEventValue;
     private eventRollCreated;
     private eventRollUpdated;
     private eventRoomUpdated;
     private executeRoll;
+    private adjustAmbientDiceSoundsVolume;
+    private attachSound;
+    private _attachSound;
     private fadeOutDiceByUuid;
     private getDiceOptions;
     private getThemeOptions;

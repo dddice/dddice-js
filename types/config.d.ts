@@ -64,7 +64,7 @@ export interface IDiceRoll {
 export interface IDiceRollOptions {
     external_id?: string;
     label?: string;
-    operator?: object;
+    operator?: Record<string, string>;
     room?: string;
     whisper?: number[];
 }
@@ -244,15 +244,9 @@ export interface IThemeOptions {
     };
     particles?: IParticleSystem[];
     sounds?: ISound[];
-    values: {
-        d4: number[];
-        d6: number[];
-        d8: number[];
-        d10: number[];
-        d10x: number[];
-        d12: number[];
-        d20: number[];
-    };
+    values: Record<string, (number | {
+        src: any;
+    })[]>;
 }
 export interface ITheme extends IThemeOptions {
     extend: string;
@@ -282,7 +276,8 @@ export declare enum DiceEvent {
     DieRollHigh = "die.high",
     DieRollLow = "die.low",
     RollLoading = "roll.loading",
-    RollLoaded = "roll.loaded"
+    RollLoaded = "roll.loaded",
+    Always = "always"
 }
 export declare enum ParticleSystemStates {
     DieIdle = "die.idle",
