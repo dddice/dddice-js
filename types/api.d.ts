@@ -1,4 +1,4 @@
-import { IRoomParticipant, IRoll, IRoom, IDiceRoll, IDiceRollOptions, IUser, ITheme } from "./config";
+import { IDiceRoll, IDiceRollOptions, IRoll, IRoom, IRoomParticipant, ITheme, IUser } from "./config";
 export declare enum ThreeDDiceRollEvent {
     RollCreated = "RollCreateEvent",
     RollUpdated = "RollUpdateEvent",
@@ -17,20 +17,23 @@ export declare type ConnectionCreatedCallback = (participants: IRoomParticipant[
 export declare type ConnectionUpdatedCallback = (participant: IRoomParticipant) => any;
 export declare type RollEventCallback = (roll: IRoll) => any;
 export declare type RoomEventCallback = (roll: IRoom) => any;
+export declare type LocalEventCallback = (data: {
+    [key: string]: any;
+}) => any;
 export declare type DieEventCallback = (die: string) => any;
 export interface IApiResponse<T, R> {
     type: T;
     data: R;
 }
 export declare class ThreeDDiceAPI {
+    roomSlug?: string;
+    userUuid?: string;
     private apiKey?;
-    private roomSlug?;
     private roomPasscode?;
     private connection?;
     private roomConnection?;
     private privateConnection?;
     private diceBoxPagingState;
-    private userUuid;
     constructor(apiKey?: string, appName?: string);
     connect: (roomSlug: string, roomPasscode?: string, userUuid?: string) => ThreeDDiceAPI;
     disconnect: () => ThreeDDiceAPI;
@@ -49,18 +52,12 @@ export declare class ThreeDDiceAPI {
         create: (dice: IDiceRoll[], options?: Partial<IDiceRollOptions>) => Promise<IApiResponse<'roll', IRoll>>;
         get: (id: string) => Promise<IApiResponse<'roll', IRoll>>;
         update: (id: string, payload: {
-            dice: {
-                uuid: string;
-                is_hidden?: boolean;
-            }[];
+            dice: Partial<IDiceRoll>[];
             room?: string;
         }) => Promise<IApiResponse<'roll', IRoll>>;
         updateBulk: (rolls: {
             uuid: string;
-            dice: {
-                uuid: string;
-                is_hidden?: boolean;
-            }[];
+            dice: Partial<IDiceRoll>[];
             room?: string;
         }[]) => Promise<IApiResponse<'roll[]', IRoll[]>>;
     };
@@ -70,10 +67,7 @@ export declare class ThreeDDiceAPI {
         get: (slug: string, passcode?: string) => Promise<IApiResponse<'room', IRoom>>;
         join: (slug: string, passcode?: string) => Promise<IApiResponse<'room', IRoom>>;
         leave: (slug: string, participantId?: string) => Promise<IApiResponse<'room', IRoom>>;
-        updateParticipant: (slug: string, participantId: number, data: {
-            username?: string;
-            color?: string;
-        }) => Promise<IApiResponse<'room', IRoom>>;
+        updateParticipant: (slug: string, participantId: number, data: Partial<IRoomParticipant>) => Promise<IApiResponse<'room', IRoom>>;
         updateRolls: (slug: string, dice: {
             is_cleared: boolean;
         }) => Promise<any>;
@@ -90,4 +84,8 @@ export declare class ThreeDDiceAPI {
         get: () => Promise<IApiResponse<'user', IUser>>;
         guest: () => Promise<IApiResponse<'string', string>>;
     };
+    sendLocal: (eventName: string, data: {
+        [key: string]: any;
+    }) => void;
+    listenLocal(event: string, callback: LocalEventCallback): ThreeDDiceAPI;
 }

@@ -9,9 +9,16 @@ export declare enum PickUp {
     BeforeNextRoll = 1
 }
 export declare enum DiceSize {
+    XSmall = 0,
     Small = 1,
     Medium = 2,
     Large = 3
+}
+export declare enum ClickBehavior {
+    Reroll = "reroll",
+    Explode = "explode",
+    Drop = "drop",
+    Nothing = "nothing"
 }
 export interface IBindableTextureSrc {
     binding: string;
@@ -47,9 +54,13 @@ export interface IAvailableDie {
     notation?: string;
 }
 export interface IDiceConfig {
+    allowPlayerRollUpdates?: boolean;
+    allowPlayerMoveDice?: boolean;
+    drawOutlines?: boolean;
+    defaultClickBehavior?: ClickBehavior;
+    limit: number;
     size: number;
     throw: IDiceThrow;
-    drawOutlines?: boolean;
 }
 export interface IDicePile {
     dieType: IDieType;
@@ -58,8 +69,12 @@ export interface IDicePile {
 export interface IDiceRoll {
     type: string;
     theme: ITheme['id'];
-    is_hidden?: boolean;
     label?: string;
+    uuid?: string;
+    is_hidden?: boolean;
+    is_dropped?: boolean;
+    is_cleared?: boolean;
+    meta?: object;
 }
 export interface IDiceRollOptions {
     external_id?: string;
@@ -141,7 +156,11 @@ export interface IPhysicsSettings {
     throwSpeed: number;
 }
 export interface IRollSettings {
+    allowPlayerRollUpdates: boolean;
+    allowPlayerMoveDice: boolean;
     autoClear: number;
+    defaultClickBehavior: ClickBehavior;
+    diceLimit: number;
     diceSize: DiceSize;
     diceTrayColor: number;
     disableDiceOutline: boolean;
@@ -150,10 +169,14 @@ export interface IRollSettings {
     pickUp: PickUp;
 }
 export interface IRoomSettings {
+    participant: IParticipantSettings;
     chat: IChatSettings;
     lighting: ILightingSettings;
     physics: IPhysicsSettings;
     roll: IRollSettings;
+}
+export interface IParticipantSettings {
+    defaultDiceTrayToGM: boolean;
 }
 export interface IRoom {
     bg_file_path?: string;
@@ -169,11 +192,16 @@ export interface IRoom {
     user: IUser;
     settings: IRoomSettings;
 }
+export declare type IDiceTray = {
+    dieType: IDieType;
+    theme: ThemeName;
+}[][];
 export interface IRoomParticipant {
     id: number;
     username: string;
     color: string;
     user: IUser;
+    dice_tray: IDiceTray;
     position: number;
     created_at: string;
     updated_at: string;
@@ -210,6 +238,9 @@ export interface IRollValue {
     is_cleared: boolean;
     is_dropped: boolean;
     label?: string;
+    meta?: {
+        [key: string]: any;
+    };
     type: string;
     theme: string;
     value: number;

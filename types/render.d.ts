@@ -4,17 +4,19 @@ export declare enum ThreeDDiceDieEvent {
     AddDie = "addDie"
 }
 export declare class ThreeDDice {
-    static DICE_ON_TABLE_LIMIT: number;
     static DefaultConfig: IEngineConfig;
     api?: ThreeDDiceAPI;
     apiKey?: string;
     private _autoRotateEnabled;
     private _controlsEnabled;
+    private _callbacks;
     private _isDiceThrowing;
+    private _isDragging;
     private _lastRotation;
     private _lastTime;
     private _pointerDown;
     private _pointerDownPosition;
+    private _thrownUUIDs;
     private _previewMode;
     private audioListener;
     private audio;
@@ -25,6 +27,8 @@ export declare class ThreeDDice {
     private config;
     private controls;
     private dice;
+    private diceDragging;
+    private dragControls;
     private events;
     private fbxLoader;
     private gltfLoader;
@@ -32,6 +36,7 @@ export declare class ThreeDDice {
     private loaderQueue;
     private meshes;
     private outlinePasses;
+    private participantFilter;
     private physics;
     private pointer;
     private raycaster;
@@ -57,6 +62,7 @@ export declare class ThreeDDice {
     set previewMode(previewMode: boolean);
     get version(): string;
     get width(): number;
+    addCallback: (eventName: string, callback: (...params: any[]) => void) => void;
     clear: () => void;
     connect: (roomSlug: string, roomPasscode?: string, userUuid?: string) => ThreeDDice;
     disconnect: () => ThreeDDice;
@@ -64,6 +70,7 @@ export declare class ThreeDDice {
     getTheme: (themeId: ThemeName) => ITheme;
     getThemes: () => ITheme[];
     initialize(canvas?: HTMLCanvasElement, apiKey?: string, config?: Partial<IEngineConfig>, appName?: string): this;
+    filter: (participantIds: number[]) => ThreeDDice;
     loadTheme: (theme: ITheme, overwriteTheme?: boolean, fetchPreviews?: boolean) => ThreeDDice;
     off(event: ThreeDDiceRollEvent | ThreeDDiceRoomEvent): ThreeDDice;
     on(event: DiceEvent, callback: DiceEventCallback): ThreeDDice;
@@ -87,10 +94,14 @@ export declare class ThreeDDice {
     private boardWidth;
     private createDie;
     private static compareEventValue;
+    private eventRollValueMoveStart;
+    private eventRollValueMoveEnd;
+    private eventRollValueMove;
     private eventRollCreated;
     private eventRollUpdated;
     private eventRoomUpdated;
     private executeRoll;
+    private shouldExecuteRollEvent;
     private adjustAmbientDiceSoundsVolume;
     private attachSound;
     private _attachSound;
@@ -100,6 +111,7 @@ export declare class ThreeDDice {
     private initAudioListener;
     private initCamera;
     private initControls;
+    private initDragControls;
     private initListeners;
     private initPhysics;
     private initRenderer;
@@ -113,18 +125,25 @@ export declare class ThreeDDice {
     private loadShaderMaterial;
     private loadSound;
     private loadTexture;
+    private onDragStart;
+    private onDrag;
+    private onDragEnd;
+    private onClick;
+    private onMove;
+    private onMoveLocal;
     private onPointerDown;
     private onPointerMove;
     private onPointerUp;
+    private onContextMenu;
     private onRollLoading;
     private onRollLoaded;
     private processLoaderQueue;
     private processQueueRoll;
     private queueResource;
     private queueRoll;
-    private removeDiceByUuid;
     private removeDiceIfOverLimit;
     private removeDieByUuid;
+    private resizePhysics;
     private unhideDiceByUuid;
     private unloadShaderMaterial;
     private unloadTheme;
