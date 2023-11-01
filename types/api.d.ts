@@ -1,7 +1,8 @@
-import { IDiceRoll, IDiceRollOptions, IRoll, IRoom, IRoomParticipant, ITheme, IUser } from "./config";
+import { IDiceRoll, IDiceRollOptions, IRoll, IRoom, IRoomParticipant, ITheme, IUser } from '@dice/config';
 export declare enum ThreeDDiceRollEvent {
     RollCreated = "RollCreateEvent",
     RollUpdated = "RollUpdateEvent",
+    RollDeleted = "RollDeleteEvent",
     RollStarted = "roll:started",
     RollFinished = "roll:finished",
     RollFadeStarted = "roll:fade:started",
@@ -11,16 +12,21 @@ export declare enum ThreeDDiceRollEvent {
 export declare enum ThreeDDiceRoomEvent {
     RoomUpdated = "RoomUpdateEvent"
 }
-export declare type ConnectionStateCallback = (state: string) => any;
-export declare type ConnectionErrorCallback = (error: string) => any;
-export declare type ConnectionCreatedCallback = (participants: IRoomParticipant[]) => any;
-export declare type ConnectionUpdatedCallback = (participant: IRoomParticipant) => any;
-export declare type RollEventCallback = (roll: IRoll) => any;
-export declare type RoomEventCallback = (roll: IRoom) => any;
-export declare type LocalEventCallback = (data: {
+export declare enum ThreeDDiceDiceBoxEvent {
+    DiceBoxCreated = "DiceBoxCreateEvent",
+    DiceBoxDeleted = "DiceBoxDeleteEvent"
+}
+export type ConnectionStateCallback = (state: string) => any;
+export type ConnectionErrorCallback = (error: string) => any;
+export type ConnectionCreatedCallback = (participants: IRoomParticipant[]) => any;
+export type ConnectionUpdatedCallback = (participant: IRoomParticipant) => any;
+export type DiceBoxEventCallback = (theme: ITheme) => any;
+export type RollEventCallback = (roll: IRoll) => any;
+export type RoomEventCallback = (roll: IRoom) => any;
+export type LocalEventCallback = (data: {
     [key: string]: any;
 }) => any;
-export declare type DieEventCallback = (die: string) => any;
+export type DieEventCallback = (die: string) => any;
 export interface IApiResponse<T, R> {
     type: T;
     data: R;
@@ -33,12 +39,14 @@ export declare class ThreeDDiceAPI {
     private connection?;
     private roomConnection?;
     private privateConnection?;
+    private userConnection?;
     private diceBoxPagingState;
     constructor(apiKey?: string, appName?: string);
     connect: (roomSlug: string, roomPasscode?: string, userUuid?: string) => ThreeDDiceAPI;
     disconnect: () => ThreeDDiceAPI;
     listen(event: ThreeDDiceRoomEvent, callback: RoomEventCallback): ThreeDDiceAPI;
     listen(event: ThreeDDiceRollEvent, callback: RollEventCallback): ThreeDDiceAPI;
+    listen(event: ThreeDDiceDiceBoxEvent, callback: DiceBoxEventCallback): ThreeDDiceAPI;
     onConnectionStateChange: (callback: (state: string) => any) => ThreeDDiceAPI;
     onConnectionError: (callback: ConnectionErrorCallback) => ThreeDDiceAPI;
     onConnect: (callback: ConnectionCreatedCallback) => ThreeDDiceAPI;

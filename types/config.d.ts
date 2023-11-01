@@ -29,7 +29,7 @@ export interface ICamera {
     fov: number;
     distance: number;
 }
-export declare type DieDefinition<T> = T | {
+export type DieDefinition<T> = T | {
     d4: T;
     d6: T;
     d8: T;
@@ -48,11 +48,11 @@ export declare enum IDieType {
     D20 = "d20",
     Modifier = "mod"
 }
-export interface IAvailableDie {
+export type IAvailableDie = {
     id: string;
     type: IDieType;
     notation?: string;
-}
+};
 export interface IDiceConfig {
     allowPlayerRollUpdates?: boolean;
     allowPlayerMoveDice?: boolean;
@@ -68,18 +68,28 @@ export interface IDicePile {
 }
 export interface IDiceRoll {
     type: string;
-    theme: ITheme['id'];
+    theme?: ITheme['id'];
     label?: string;
     uuid?: string;
     is_hidden?: boolean;
     is_dropped?: boolean;
     is_cleared?: boolean;
     meta?: object;
+    value?: number;
 }
+type OperatorKey = number | string;
+type OperatorValue = OperatorKey | Record<OperatorKey, number[]>;
+export type Operator = {
+    '*': Exclude<OperatorValue, string>;
+    '/': Exclude<OperatorValue, string>;
+    k: OperatorValue;
+    d: OperatorValue;
+    round: OperatorValue;
+};
 export interface IDiceRollOptions {
     external_id?: string;
     label?: string;
-    operator?: Record<string, string>;
+    operator?: Operator;
     room?: string;
     whisper?: number[];
 }
@@ -192,7 +202,7 @@ export interface IRoom {
     user: IUser;
     settings: IRoomSettings;
 }
-export declare type IDiceTray = {
+export type IDiceTray = {
     dieType: IDieType;
     theme: ThemeName;
 }[][];
@@ -213,6 +223,7 @@ export interface IUser {
     created_at: string;
     updated_at: string;
     has_external_accounts: boolean;
+    subscription: boolean;
 }
 export interface IRoll {
     uuid: string;
@@ -265,7 +276,7 @@ export interface IThemeOptions {
     id: ThemeName;
     api_version: number | string;
     meshes: DieDefinition<string>;
-    available_dice: any[];
+    available_dice: (IAvailableDie | IDieType)[];
     textures: IBindableTextureSrc[];
     uniforms: ShaderMaterial['uniforms'];
     sizes: DieDefinition<number>;
@@ -320,5 +331,6 @@ export declare enum ParticleSystemStates {
     RollLoading = "roll.loading",
     RollLoaded = "roll.loaded"
 }
-export declare type DiceEventCallback = (themeName: string, value: number, loop: boolean) => void;
-export declare type ThemeName = string;
+export type DiceEventCallback = (themeName: string, value: number, loop: boolean) => void;
+export type ThemeName = string;
+export {};
