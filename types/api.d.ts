@@ -1,4 +1,4 @@
-import { IDiceRoll, IDiceRollOptions, IRoll, IRoom, IRoomParticipant, ITheme, IUser } from '@dice/config';
+import { IDiceRoll, IDiceRollOptions, IRoll, IRoom, IRoomParticipant, ITheme, IUser } from './config';
 export declare enum ThreeDDiceRollEvent {
     RollCreated = "RollCreateEvent",
     RollUpdated = "RollUpdateEvent",

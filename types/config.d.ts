@@ -213,6 +213,7 @@ export interface IRoomParticipant {
     user: IUser;
     dice_tray: IDiceTray;
     position: number;
+    settings?: Partial<IRoomSettings>;
     created_at: string;
     updated_at: string;
 }
