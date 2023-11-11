@@ -6,37 +6,14 @@
  * Released under the MIT licence.
  */
 
+/*!
+fflate - fast JavaScript compression/decompression
+<https://101arrowz.github.io/fflate>
+Licensed under MIT. https://github.com/101arrowz/fflate/blob/master/LICENSE
+version 0.6.9
+*/
+
 /*! js-cookie v3.0.5 | MIT */
-
-/**
- * @dice-roller/rpg-dice-roller - An advanced JS based dice roller that can roll various types of dice and modifiers, along with mathematical equations.
- * 
- * @version 5.4.1
- * @license MIT
- * @author GreenImp Media <info@greenimp.co.uk> (https://greenimp.co.uk)
- * @link https://dice-roller.github.io/documentation
- */
-
-/**
- * @license
- * Copyright 2010-2022 Three.js Authors
- * SPDX-License-Identifier: MIT
- */
-
-/**
- * @license Complex.js v2.1.1 12/05/2020
- *
- * Copyright (c) 2020, Robert Eisele (robert@xarg.org)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- **/
-
-/**
- * @license Fraction.js v4.3.0 20/08/2023
- * https://www.xarg.org/2014/03/rational-numbers-in-javascript/
- *
- * Copyright (c) 2023, Robert Eisele (robert@raw.org)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- **/
 
 /**
  * postprocessing v6.33.2 build Mon Oct 02 2023

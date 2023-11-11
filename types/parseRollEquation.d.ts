@@ -1,5 +1,10 @@
-import { IDiceRoll } from './config';
-export default function parseRollEquation(equation: string, themeSlug: string, values?: (number | string)[]): {
+import { IDiceRoll, ITheme, Operator } from './config';
+export declare class MissingDieError extends Error {
+    constructor(message: any, availableDiceMessage: any);
+    available_dice: string;
+}
+export default function parseRollEquation(equation: string, theme: string | ITheme, values?: (number | string)[]): {
     dice: IDiceRoll[];
-    operator: Record<string, string | Record<string, number[]>>;
+    operator: Operator;
 };
+export declare function tokenizeEquation(equation: string): string[];

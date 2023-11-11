@@ -76,15 +76,16 @@ export interface IDiceRoll {
     is_cleared?: boolean;
     meta?: object;
     value?: number;
+    value_to_display?: number | string | IRollValueImage;
 }
 type OperatorKey = number | string;
 type OperatorValue = OperatorKey | Record<OperatorKey, number[]>;
 export type Operator = {
-    '*': Exclude<OperatorValue, string>;
-    '/': Exclude<OperatorValue, string>;
-    k: OperatorValue;
-    d: OperatorValue;
-    round: OperatorValue;
+    '*'?: Exclude<OperatorValue, string>;
+    '/'?: Exclude<OperatorValue, string>;
+    k?: OperatorValue;
+    d?: OperatorValue;
+    round?: OperatorValue;
 };
 export interface IDiceRollOptions {
     external_id?: string;

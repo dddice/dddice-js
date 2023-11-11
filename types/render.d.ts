@@ -1,5 +1,5 @@
-import { DiceEvent, DiceEventCallback, IAvailableDie, IDiceRoll, IDiceRollOptions, IDieType, IEngineConfig, IRoll, ITheme, ThemeName } from './config';
 import { IApiResponse, RollEventCallback, RoomEventCallback, ThreeDDiceAPI, ThreeDDiceRollEvent, ThreeDDiceRoomEvent } from './api';
+import { DiceEvent, DiceEventCallback, IAvailableDie, IDiceRoll, IDiceRollOptions, IDieType, IEngineConfig, IRoll, ITheme, ThemeName } from './config';
 export declare enum ThreeDDiceDieEvent {
     AddDie = "addDie"
 }
