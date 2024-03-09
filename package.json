@@ -1,6 +1,6 @@
 {
   "name": "dddice-js",
-  "version": "0.17.23",
+  "version": "0.18.5",
   "description": "Integrate live 3D dice rolling into your own projects by leveraging the power of [dddice](https://dddice.com).",
   "main": "dddice-latest.js",
   "repository": {
