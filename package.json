@@ -14,7 +14,7 @@
     "url": "https://github.com/dddice/dddice-js/issues"
   },
   "homepage": "https://dddice.com",
-  "types": "./types",
+  "types": "./types/*.d.ts",
   "dependencies": {
     "@types/three": "0.143.2"
   }
