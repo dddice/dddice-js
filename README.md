@@ -23,14 +23,37 @@ const dddice = new window.ThreeDDice(canvasElement, '<YOUR_API_KEY>');
 dddice.start(); // start the renderer
 dddice.connect('<YOUR_ROOM_SLUG>'); // connect and listen for room events
 
+// parse a roll equation
+const { dice } = parseRollEquation('1d20', 'dddice-bees');
+
 // Roll dice
-dddice.roll([{
-    theme: 'dddice-standard',
-    type: 'd20',
-}]);
+dddice.roll(dice);
 ```
 
 Read the [official documentation](https://docs.dddice.com/sdk/js/latest/) for usage information.
+
+## Using in Node.js
+
+```javascript
+import {ThreeDDiceAPI, parseRollEquation, ThreeDDiceRollEvent} from 'dddice-js';
+import {exit} from 'process';
+
+const api = new ThreeDDiceAPI('<YOUR_API_KEY>');
+const room = (await api.room.create()).data;
+
+api.connect(room.slug);
+api.listen(ThreeDDiceRollEvent.RollCreated, (roll) => {
+    console.log('roll received');
+    console.log(roll.equation);
+    console.log(roll.total_value);
+    exit();
+});
+
+api.onConnect(async () => {
+    const { dice } = parseRollEquation('1d20', 'dddice-bees');
+    const roll = await api.roll.create(dice);
+});
+```
 
 ## License
 

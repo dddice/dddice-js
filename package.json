@@ -1,21 +1,32 @@
 {
-  "name": "dddice-js",
-  "version": "0.19.23",
-  "description": "Integrate live 3D dice rolling into your own projects by leveraging the power of [dddice](https://dddice.com).",
-  "main": "dddice-latest.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dddice/dddice-js.git"
-  },
-  "keywords": [],
-  "author": "dddice",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/dddice/dddice-js/issues"
-  },
-  "homepage": "https://dddice.com",
-  "types": "./types/*.d.ts",
-  "dependencies": {
-    "@types/three": "0.143.2"
-  }
+    "name": "dddice-js",
+    "version": "0.12.0",
+    "description": "Integrate live 3D dice rolling into your own projects by leveraging the power of [dddice](https://dddice.com).",
+    "main": "dddice-latest.node.cjs",
+    "module": "dddice-latest.web.mjs",
+    "browser": {
+        "./dddice-latest.node.mjs": "./dddice-latest.web.mjs",
+        "./dddice-latest.node.cjs": "./dddice-latest.js"
+    },
+    "exports": {
+        "import": "./dddice-latest.node.mjs",
+        "require": "./dddice-latest.node.cjs"
+    },
+    "type": "module",
+    "react-native": "dddice-latest.native.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dddice/dddice-js.git"
+    },
+    "keywords": [],
+    "author": "dddice",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/dddice/dddice-js/issues"
+    },
+    "homepage": "https://dddice.com",
+    "types": "./types",
+    "dependencies": {
+        "@types/three": "0.143.2"
+    }
 }
