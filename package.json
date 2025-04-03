@@ -9,8 +9,16 @@
         "./dddice-latest.node.cjs": "./dddice-latest.js"
     },
     "exports": {
-        "import": "./dddice-latest.node.mjs",
-        "require": "./dddice-latest.node.cjs"
+        "import": {
+            "types": "./types/mjs/index.d.ts",
+            "node":"./dddice-latest.node.mjs",
+            "default": "./dddice-latest.web.mjs"
+        },
+        "require": {
+            "types": "./types/cjs/index.d.ts",
+            "node":"./dddice-latest.node.cjs",
+            "default": "./dddice-latest.js"
+        }
     },
     "type": "module",
     "react-native": "dddice-latest.native.js",
@@ -25,7 +33,7 @@
         "url": "https://github.com/dddice/dddice-js/issues"
     },
     "homepage": "https://dddice.com",
-    "types": "./types",
+    "types": "./types/mjs/index.d.ts",
     "dependencies": {
         "@types/three": "0.143.2"
     }

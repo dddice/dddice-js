@@ -1,4 +1,4 @@
-import { IDiceRoll, IDiceRollOptions, IRoll, IRoom, IRoomParticipant, ITheme, IUser } from './config';
+import { IDiceRoll, IDiceRollOptions, IRoll, IRoom, IRoomParticipant, ITheme, IUser } from '@dice/config';
 export declare enum ThreeDDiceRollEvent {
     RollCreated = "RollCreateEvent",
     RollUpdated = "RollUpdateEvent",
@@ -47,6 +47,9 @@ export declare class ThreeDDiceAPI {
     listen(event: ThreeDDiceRoomEvent, callback: RoomEventCallback): ThreeDDiceAPI;
     listen(event: ThreeDDiceRollEvent, callback: RollEventCallback): ThreeDDiceAPI;
     listen(event: ThreeDDiceDiceBoxEvent, callback: DiceBoxEventCallback): ThreeDDiceAPI;
+    stopListening(event: ThreeDDiceRoomEvent, callback: RoomEventCallback): ThreeDDiceAPI;
+    stopListening(event: ThreeDDiceRollEvent, callback: RollEventCallback): ThreeDDiceAPI;
+    stopListening(event: ThreeDDiceDiceBoxEvent, callback: DiceBoxEventCallback): ThreeDDiceAPI;
     onConnectionStateChange: (callback: (state: string) => any) => ThreeDDiceAPI;
     onConnectionError: (callback: ConnectionErrorCallback) => ThreeDDiceAPI;
     onConnect: (callback: ConnectionCreatedCallback) => ThreeDDiceAPI;
@@ -93,6 +96,11 @@ export declare class ThreeDDiceAPI {
     user: {
         get: () => Promise<IApiResponse<'user', IUser>>;
         guest: () => Promise<IApiResponse<'string', string>>;
+        activate: () => Promise<{
+            expiresAt: string;
+            code: string;
+            apiKey: Promise<string>;
+        }>;
     };
     sendLocal: (eventName: string, data: {
         [key: string]: any;
